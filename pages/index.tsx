@@ -2,6 +2,7 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { ClipLoader } from 'react-spinners';
 import { FcGoogle } from 'react-icons/fc';
+import HomePageMain from "@/components/HomePage/Main";
 
 export default function Home() {
   const { data: session, status: sessionStatus } = useSession();
@@ -26,25 +27,20 @@ export default function Home() {
   // CHECKING IF USER/SESSION AVAILABLE
   if (!session?.user && sessionStatus === 'loading') {
     return <div className="p-4 h-screen w-full bg-[#D0BFFF] flex justify-center items-center flex-col">
-      <ClipLoader color="red" size={100} />
+      <ClipLoader color="green" size={90} />
     </div>
   }
 
   return (
     <>
 
-
+    {/* IF SESSION AVAILABLE AND USER HAS LOGGED! */}
       {session?.user && sessionStatus === 'authenticated' && <>
-        <div className="p-4">
-          <p className="">User Available</p>
-          <button onClick={() => signOut()} className="p-1 bg-red-500 rounded-md px-3">Log out</button>
-        </div>
+       
+       <HomePageMain />
+
       </>
       }
-
-
-
-
 
     </>
   )

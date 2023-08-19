@@ -4,7 +4,6 @@ import clientPromise from '@/lib/mongodb';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { Session, Account, SessionStrategy } from 'next-auth';
 import { JWT } from "next-auth/jwt";
-import { mongooseConnect } from './mongoose';
 
 
 export const authOptions = {
