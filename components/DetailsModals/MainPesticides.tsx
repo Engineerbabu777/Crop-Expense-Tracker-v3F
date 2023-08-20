@@ -28,12 +28,7 @@ export default function MainPesticides({setPesticides , pesticides}:Props) {
     <div className="">
 
         {/* BILLING MONTH! */}
-         <div className="flex gap-2 items-center ">
-            <div className="font-semibold text-xl text-gray-500">Select Month: </div>
-            <div className="flex-1 ">
-              <EMenuComponent handleMonthChange={handleMonthChange} selectedMonth={pesticides.month} />
-            </div>
-         </div>
+      
         
         {/* AUTO SELECT MONTH! */}
          {/* <div className="h-8 w-full  mt-2 flex gap-2 items-center ">
@@ -43,8 +38,8 @@ export default function MainPesticides({setPesticides , pesticides}:Props) {
 
         {/* BILL UNITS! */}
          <div className="mt-4 flex gap-2 items-center ">
-          <div className="font-semibold text-xl text-gray-500">Bags Used: </div>
-          <input  value={pesticides.bags} onChange={(e) => setPesticides((prev:any) => ({...prev , bags:e.target.value}))} placeholder="Default N/A" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
+          <div className="font-semibold text-xl text-gray-500">Quantity Used: </div>
+          <input  value={pesticides.quantity} onChange={(e) => setPesticides((prev:any) => ({...prev , quantity:e.target.value}))} placeholder="0" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
          </div>
 
          <div className="mt-4 flex gap-2 items-center ">
@@ -53,10 +48,16 @@ export default function MainPesticides({setPesticides , pesticides}:Props) {
           placeholder="Default N/A" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
          </div>
 
+         <div className="mt-4 flex gap-2 items-center ">
+          <div className="font-semibold text-xl text-gray-500">Date: </div>
+          <input type="date" value={pesticides.date} onChange={(e) => setPesticides((prev:any) => ({...prev , date:e.target.value}))}   
+          placeholder="Default N/A" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
+         </div>
+
         {/* BILL AMOUNT! */}
         <div className="mt-6 flex gap-2 items-center mb-8 shadow-md p-2 rounded-md">
           <div className="font-semibold text-xl text-gray-500">Billing Amount: </div>
-          <input value={pesticides.amount} onChange={(e) => setPesticides((prev:any) => ({...prev , amount:e.target.value}))}
+          <input type="number" value={pesticides.amount} onChange={(e) => setPesticides((prev:any) => ({...prev , amount:e.target.value}))}
            placeholder="Amount in (pkr)" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
          </div>
 

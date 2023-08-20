@@ -10,11 +10,12 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
      mongooseConnect();
 
      if(req.method === 'POST'){
-        const {month , bags , amount , name} = req.body;
+        const {date , quantity , amount , name , parentId} = req.body;
 
+        console.log(date, quantity)
 
         const newPest = await pestModel.create({
-            amount:Number(amount), bags , month:month , name:name,
+            amount:Number(amount), quantity:Number(quantity) , date:date , name:name,parentId
         });
 
         res.status(200).json({success:true , newPest})

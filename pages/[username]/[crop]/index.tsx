@@ -31,7 +31,15 @@ export default function Index({}) {
     misc: 0,
   });
 
-  const [sold , setSold] = useState<any>([]);
+  const [sold , setSold] = useState({
+    amount:0,
+    desc:'',
+    date:null,
+    colSold:[],
+    totalSold:0,
+    edit:false,
+    totalCrop:0,
+  });
 
   
 
@@ -118,7 +126,7 @@ export default function Index({}) {
                     <h2 className="font-[700] text-xl text-white underline">Sold</h2>
 
                     {/* AMOUNT! */}
-                    <p className="font-semibold text-white">{sold?.amount?.toLocaleString() || 0}/-Rs</p>
+                    <p className="font-semibold text-white">{sold?.totalSold?.toLocaleString()}/-Rs</p>
                      
                 </div>
             </div>
@@ -146,7 +154,7 @@ export default function Index({}) {
                     <h2 className="font-[700] text-xl text-white underline">Debt</h2>
 
                     {/* AMOUNT! */}
-                    <p className="font-semibold text-white">{debt?.totalDebt?.toLocaleString()}/-Rs</p>
+                    <p className="font-semibold text-white">{(Math.abs(debt?.totalDebt - profit?.debt)).toLocaleString()}/-Rs</p>
 
                 </div>
             </div>

@@ -17,18 +17,21 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
     if(req.method === 'GET'){
       const {p_id} = req.query;
 
-      const soldData = await soldModel.findOne({parentId:p_id});
+      const soldData = await soldModel.find({parentId:p_id});
 
       res.status(200).json({success:true , soldData});
       res.end();
     }
 
     if(req.method ==='POST'){
-       const {parentId , amount  , totalCrop} = req.body;
+       const {parentId , amount  , totalCrop ,desc,date} = req.body;
+       
+       console.log(parentId , amount , totalCrop , desc);
 
        const soldData = await soldModel.create({
-         parentId , amount , totalCrop
+         parentId , amount , totalCrop, desc,date
        });
+
 
        res.status(200).json({success:true , soldData});
        res.end();

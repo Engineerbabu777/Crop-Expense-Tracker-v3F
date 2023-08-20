@@ -11,7 +11,10 @@ import {
     TableCaption,
     TableContainer,
   } from '@chakra-ui/react';
+  import {format} from 'date-fns';
 
+
+  
 
   type Props = {
     Data: any;
@@ -44,9 +47,9 @@ export default function DetailsTable({Data}:Props){
 
         <Td >{i+1}</Td>
         <Td >{d?.name}</Td>
-        <Td>{d?.bags}</Td>
+        <Td>{d?.quantity}</Td>
         <Td>{d?.amount?.toLocaleString()}</Td>
-        <Td>Yes</Td>
+        <Td>{format(new Date(d?.date),'yyyy-MM-dd')}</Td>
         <Td>Edit</Td>
 
       </Tr>

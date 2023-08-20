@@ -11,6 +11,9 @@ import BasicUsage from '@/modals/NewEntry';
 import { AuthState } from '../../../atom/authState';
 import useAllCrops from '@/utils/getAllCrops';
 import {useRecoilState} from 'recoil';
+
+import {useSession} from 'next-auth/react';
+
 const images = [Image1, Image2, Image3, Image4, Image5];
 
 export default function Greeting({}) {
@@ -19,11 +22,15 @@ export default function Greeting({}) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const currentImage = images[currentImageIndex];
   const [authState , setAuthState] = useRecoilState(AuthState);
+  const {status,data:session}  = useSession();
   const {crops , getFreshData} = useAllCrops();
 
   useEffect(() => {
-    getFreshData();
-  }, []);
+if(session){
+  getFreshData();
+}
+  
+  }, [status]);
 
       
 

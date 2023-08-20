@@ -56,10 +56,10 @@ import {
 
     // Pesticides!
      const [pesticides , setPesticides] = useState({
-      bags: 0,
+      quantity: 0,
       amount: 0,
-      month: '',
       name: '',
+      date:null,
      })
 
      // MISCELLANOUS!
@@ -133,7 +133,7 @@ import {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body:JSON.stringify({month:pesticides.month , bags:pesticides.bags , amount:pesticides.amount, name: pesticides.name, parentId:router.query.crop})
+        body:JSON.stringify({amount:pesticides.amount , quantity:pesticides.quantity , date:pesticides.date, name: pesticides.name, parentId:router.query.crop})
        }).then((res) => res.json().then((data) => console.log(data)) );
 
        setDataState({view:'',open:false})

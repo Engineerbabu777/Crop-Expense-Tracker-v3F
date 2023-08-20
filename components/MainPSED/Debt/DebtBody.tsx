@@ -10,8 +10,10 @@ import {format} from 'date-fns';
 type Props ={
     debt: any;
     setDebt: any;
+    profit:any
 }
-export default function DebtBody({debt , setDebt}:Props) {
+
+export default function DebtBody({debt , setDebt,profit}:Props) {
 
 
     const router = useRouter();
@@ -67,8 +69,14 @@ export default function DebtBody({debt , setDebt}:Props) {
 
         {/* TOTAL DEBT! */}
          <div className=" my-2 border-2 border-blue-500 rounded-lg h-32 flex justify-center items-center flex-col bg-black ">
-            <p className="text-xl font-semibold text-white">Total Debt Amount: </p>
-            <p className=" font-bold text-white text-2xl">{debt?.totalDebt.toLocaleString()} -/Rs</p>
+            {/* <p className="text-xl font-semibold text-white">Total Debt Amount: </p>
+            <p className=" font-bold text-white text-2xl">{(Math.abs(debt?.totalDebt - profit?.debt)).toLocaleString()} -/Rs</p>
+            <p className="text-xl font-semibold text-white">Crop Loss: </p>
+            <p className=" font-bold text-white text-2xl">{profit?.debt?.toLocaleString()} -/Rs</p> */}
+
+            <p className="text-xl text-white flex">Total Debt : <p className="ml-2 text-2xl text-red-400">{(Math.abs(debt?.totalDebt - profit?.debt)).toLocaleString()} pkr</p></p>
+            <p className="text-xl text-white flex">Crop loss : <p className="ml-2 text-2xl text-red-400">{profit?.debt?.toLocaleString()} pkr</p></p>
+
         </div>  
          
          {/* CREATE NEW DEBT! */}
@@ -86,8 +94,8 @@ export default function DebtBody({debt , setDebt}:Props) {
                 <p className="text-xl text-black text-semibold">{d?.desc}</p>
               </div>
               <div className=" flex justify-between">
-               <p className="bg-blue-300 text-black p-2 text-md">Date: {format(new Date(d?.date),'MMM dd yyyy')}</p>
-               <p className="bg-red-500 text-white p-2 text-md">Debt Amount: {d?.debtAmount?.toLocaleString()} pkr</p>
+               <p className="bg-blue-300 text-black p-2 text-sm">Date: {format(new Date(d?.date),'MMM dd yyyy')}</p>
+               <p className="bg-red-500 text-white p-2 text-sm">Debt Amount: {d?.debtAmount?.toLocaleString()} pkr</p>
               </div>
             </div>))}
             

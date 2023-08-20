@@ -11,11 +11,16 @@ const SoldSchema = new mongoose.Schema({
 
     // Amount
     amount:Number,
+    
     // Date !!
     date:Date,
 
     // totalCrop!
     totalCrop: Number,
+
+    // Description!
+    desc: String,
+
 },{
     timestamps:true,
 });

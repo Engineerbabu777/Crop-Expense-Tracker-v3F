@@ -13,10 +13,11 @@ import {useRecoilState} from 'recoil';
 import NewEntryBody from '@/components/Modals/NewEntry';
 import {useState} from 'react';
 import useAllCrops from '@/utils/getAllCrops';
-
+import {useSession} from 'next-auth/react';
 
 export default function BasicUsage() {
   const [authState , setAuthState] = useRecoilState(AuthState);
+  const {data:Session} = useSession();
   console.log(authState.open);
   const [name  , setName] = useState<string>('');
   const [month , setMonth] = useState('');
@@ -37,7 +38,7 @@ export default function BasicUsage() {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   },
-   body:JSON.stringify({month , name , year})})
+   body:JSON.stringify({month , name , year,userId:Session?.user?.id})})
    .then((res) => res.json().then((data) => console.log(data)))
    .catch((err) => console.log(err))
 

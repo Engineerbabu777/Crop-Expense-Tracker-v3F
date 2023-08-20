@@ -4,10 +4,10 @@ import mongoose from 'mongoose';
 
 const PestSchema = new mongoose.Schema({
 
-    bags: {type: Number},
-    amount: {type: Number},
-    month: {type:String},
-    name: {type: String},
+    quantity:Number,
+    amount: Number,
+    date: Date,
+    name: String,
     parentId: {type:mongoose.Schema.Types.ObjectId, ref:'crop'}
 
 },{

@@ -11,7 +11,7 @@ type Props ={
 }
 
 export default function NewEntryBody({
-  name , date, setName , setDate}:Props) 
+  name , date, setName , setDate }:Props) 
   {
 
     // getCrrentDate!

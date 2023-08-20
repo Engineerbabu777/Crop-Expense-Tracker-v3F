@@ -33,6 +33,7 @@ import {
     setDebt:any;
     profit:any;
     setProfit:any;
+
   }
 
   export default function ViewDataState({setExpenses , expenses, sold ,setSold,debt,setDebt,profit,setProfit}:Props) {
@@ -60,7 +61,14 @@ import {
             }))
 
             fetch('/api/sold?p_id='+router?.query?.crop).then((response) => response.json().then((data) => {
-              setSold(data?.soldData)
+              // TOTAL SOLD AMOUNT!
+              let t =  data?.soldData?.reduce((acc:any , curr:any) => {if(curr?.amount !== undefined) return acc+Number(curr?.amount)},0);
+              // DEBT COLLECTION!
+              console.log(data?.soldData)
+
+              console.log(data , sold , setSold , t , data?.soldData);
+
+              setSold((prev:any) => ({...prev , totalSold:t , colSold:data?.soldData}));
              
             }));
 
@@ -81,16 +89,16 @@ import {
                 let expenses_Amount = Number(a) + Number(b) + Number(c) + Number(d) + Number(e) + Number(f);
 
                 // SOLD AMOUNT!
-                let sold_amount = data?.soldData[0]?.amount;
+                let sold_amount = data?.soldData?.reduce((acc:any , curr:any) => {if(curr?.amount !== undefined) return acc+Number(curr?.amount)},0);;
 
                 // DEBT AMOUNT!
                 let debt_Amount =  data?.debtData?.reduce((acc:any , curr:any) => {if(curr?.debtAmount !== undefined) return acc+Number(curr?.debtAmount)},0);
 
-
-                console.log(expenses_Amount , sold_amount , debt_Amount);
-
                 if(sold_amount){
-                  setProfit((prev:any) => ({...prev, profit:(sold_amount - (expenses_Amount + debt_Amount)), debt:debt_Amount , sold:sold_amount ,expenses:expenses_Amount}))
+
+                  let p =  (sold_amount - (expenses_Amount + debt_Amount));
+        
+                  setProfit((prev:any) => ({...prev, profit:(p>=0)? p:0, debt:(p<0) ? Math.abs(p) : 0 , sold:sold_amount ,expenses:expenses_Amount}))
                 }
 
             }));
@@ -137,9 +145,9 @@ import {
 
                 {mainModalState?.view === 'expenses' && <ExpensesBody expenses={expenses} /> }
 
-                {mainModalState?.view === 'sold' && <SoldBody sold={sold}/> }
+                {mainModalState?.view === 'sold' && <SoldBody sold={sold} setSold={setSold} /> }
 
-                {mainModalState?.view === 'debt' && <DebtBody debt={debt} setDebt={setDebt} /> }
+                {mainModalState?.view === 'debt' && <DebtBody debt={debt} setDebt={setDebt} profit={profit}/> }
 
                 {mainModalState?.view === 'profit' && <ProfitBody profit={profit} setProfit={setProfit} /> }
 

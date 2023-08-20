@@ -4,13 +4,13 @@ import mongoose from "mongoose";
 
 const CropSchema = new mongoose.Schema({
    
-   // User Info!
-
-   // Crop Name!
+    // User Info!
+    userId:{type:mongoose.Types.ObjectId , ref:'user'},
+    // Crop Name!
     name: {type: String},
-   // Crop Month!
+    // Crop Month!
     month: {type: String},
-   // Crop Year!
+    // Crop Year!
     year: {type: String},
  
 },{
