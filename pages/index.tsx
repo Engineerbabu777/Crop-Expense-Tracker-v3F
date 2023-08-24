@@ -37,7 +37,13 @@ export default function Home() {
     {/* IF SESSION AVAILABLE AND USER HAS LOGGED! */}
       {session?.user && sessionStatus === 'authenticated' && <>
        
+       <div className="sm:hidden">
        <HomePageMain />
+       </div>
+
+       <div className="hidden sm:block text-red-500 text-xl text-center">
+        Only Mobile Version is Available
+       </div>
 
       </>
       }
