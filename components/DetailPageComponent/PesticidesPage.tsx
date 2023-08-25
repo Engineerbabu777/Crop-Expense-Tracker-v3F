@@ -96,13 +96,7 @@ export default function PesticidesPage() {
  {/* TABLE! */}
   <DetailsTable  Data={PesticidesDetails} />
 
-  {/* ABOUT APP! */}
-   <div className="mt-[5rem] bg-white absolute bottom-0 left-0 right-0 text-center  ">
-    {/* <p className="text-sm">Stay informed about your electricity usage patterns and make informed decisions to optimize costs, all within our user-friendly electricity billing table for efficient farm management.</p> */}
-   <p className="text-md text-gray-500">
-   All rights reserved © Crop Expenses Tracker 2023. Unauthorized reproduction or distribution of any content from this website is strictly prohibited.
-   </p>
-   </div>
+  
 
 </div>
     

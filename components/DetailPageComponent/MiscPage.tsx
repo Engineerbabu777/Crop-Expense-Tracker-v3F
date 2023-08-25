@@ -2,32 +2,73 @@
 import Navbar from '@/components/HomePage/TopNavigation/Navbar';
 import {useRouter} from 'next/router';
 
-import {Divider} from '@chakra-ui/react';
+import {Divider,Flex} from '@chakra-ui/react';
 import {IoAddCircle} from 'react-icons/io5'
 
+
+  import {useState , useEffect} from 'react';
+  import {BiEdit} from 'react-icons/bi';
+  import {AiFillDelete} from 'react-icons/ai';
+  import { confirmAlert } from 'react-confirm-alert';
+  import 'react-confirm-alert/src/react-confirm-alert.css'; 
+  import toast, {Toaster} from 'react-hot-toast';
+  import Swal from 'sweetalert2'
+  import withReactContent from 'sweetalert2-react-content'
+  import {Alert} from '../SweetAlert/MiscAlert';
+  import Update from '../SweetAlert/MiscUpdate';
   import { DataState } from '@/atom/dataState';
   import {useRecoilState} from 'recoil';
-  import {useState , useEffect} from 'react';
-
+  
+  
 import {format} from 'date-fns'
 
 export default function MiscPage() {
 
-    const {query} = useRouter();
-    const {name} = query;
+    const router = useRouter();
+    const {name} = router?.query;
     const [data , setData] = useRecoilState(DataState);
 
     const [misc , setMisc] = useState([]);
     const [totalAmount , setTotalAmount] = useState(0);
+
+    const MySwal = withReactContent(Swal);
+  
+  
+    const test = (m:any) => {
+  
+      MySwal.fire({
+        title: <p>Deleting ....</p>,
+        html: <Alert closeButton={Swal.close} misc={misc} setMisc={setMisc} m={m} />,
+        showCancelButton: false,
+        showConfirmButton:false,
+        
+      })
+  
+    }
+  
+    const editEntry = (m:any) => {
+      MySwal.fire({
+        title: <p>Updating...</p>,
+        html: <Update closeButton={Swal.close} prevData={m} />,
+        showCancelButton: false,
+        showConfirmButton:false,
+        
+      })
+       
+    }
+  
+
+
+
 
     // Make a fecth Request!
     useEffect(() => {
   
       fetch('/api/misc').then((res:any) => res.json().then((data:any) => {
       
-        setMisc(data.allMisc.filter((m:any) => m.parentId == query?.crop));
+        setMisc(data.allMisc.filter((m:any) => m.parentId == router?.query?.crop));
 
-        const b = data.allMisc.filter((m:any) => m.parentId == query?.crop);
+        const b = data.allMisc.filter((m:any) => m.parentId == router?.query?.crop);
         const amount = b.reduce((accumulator:any, currentObject:any) => accumulator + currentObject.amount, 0);     
         setTotalAmount(amount);
         console.log(amount)
@@ -41,7 +82,7 @@ export default function MiscPage() {
     return(<>
     
     
-    <div className="bg-gradient-to-br from-blue-500 to-black h-[calc(100vh-48px)] pt-2 w-full relative">
+    <div className="bg-gradient-to-br from-blue-500 to-black min-h-screen max-h-full pt-2 w-full relative">
 
 {/* TOP BOX! */}
  <div className="bg-gradient-to-r px-2  from-teal-400 to-blue-400 h-12 w-[95%] flex mx-auto items-center">
@@ -98,6 +139,12 @@ export default function MiscPage() {
              <p className="font-bold text-red-600">{format(new Date(m?.date),'yyyy-MM-dd')}</p>
              <p className="font-bold text-lg">: تاریخ</p>
            </div>
+           <div>
+           <Flex gap={4} justifyContent={'space-evenly'} alignItems={'center'}>
+            <BiEdit className="w-5 h-5 text-green-500" onClick={() => editEntry(m)}/>
+            <AiFillDelete className="w-5 h-5 text-red-500" onClick={() => {test(m)}}/>
+          </Flex>
+           </div>
          </div>
        </div>
       </div>
@@ -108,13 +155,6 @@ export default function MiscPage() {
 
  
 
-  {/* ABOUT APP! */}
-   <div className="mt-[5rem] bg-white absolute bottom-0 left-0 right-0 text-center  ">
-    {/* <p className="text-sm">Stay informed about your electricity usage patterns and make informed decisions to optimize costs, all within our user-friendly electricity billing table for efficient farm management.</p> */}
-   <p className="text-md text-gray-500">
-   All rights reserved © Crop Expenses Tracker 2023. Unauthorized reproduction or distribution of any content from this website is strictly prohibited.
-   </p>
-   </div>
 
 </div>
     

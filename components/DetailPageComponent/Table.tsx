@@ -29,6 +29,7 @@ type Props = {
   bills:any;
   setBills:any;
 }
+
 export default function DetailsTable({bills,setBills}:Props){
   
   const router = useRouter();
@@ -89,14 +90,13 @@ export default function DetailsTable({bills,setBills}:Props){
         {/* <Td>No Date</Td> */}
         <Td>{b?.units}</Td>
         <Td>41</Td>
-        <Td>{b?.bill}</Td>
+        <Td>{b.bill}</Td>
         <Td>Yes</Td>
         <Td>
           <Flex gap={4} justifyContent={'space-evenly'} alignItems={'center'}>
             <BiEdit className="w-5 h-5 text-green-500" onClick={() => editEntry(b)}/>
             
             <AiFillDelete className="w-5 h-5 text-red-500" onClick={() => {test(b)}}/>
-            
             
           </Flex>
         </Td>

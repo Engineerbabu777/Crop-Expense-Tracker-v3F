@@ -11,20 +11,63 @@ import {
     Th,
     Td,
     TableCaption,
-    TableContainer,
+    TableContainer,Flex
   } from '@chakra-ui/react';
-import {useEffect , useState} from 'react';
 import {format} from 'date-fns';
+import {useState , useEffect} from 'react';
+import {BiEdit} from 'react-icons/bi';
+import {AiFillDelete} from 'react-icons/ai';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import toast, {Toaster} from 'react-hot-toast';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import {Alert} from '../SweetAlert/DieselAlert';
+import {useRouter} from 'next/router';
+import Update from '../SweetAlert/DieselUpdate';
+import { DataState } from '@/atom/dataState';
+import {useRecoilState} from 'recoil';
+
 
 
 type Props = {
-  Data: any;
+  diesel: any;
+  setDiesel:any;
 }
 
-export default function DetailsTable({Data}:Props){
+export default function DetailsTable({diesel , setDiesel}:Props){
 
 
-  console.log(Data)
+  
+  const router = useRouter();
+  const MySwal = withReactContent(Swal);
+
+
+  const test = (d:any) => {
+
+    MySwal.fire({
+      title: <p>Deleting ....</p>,
+      html: <Alert closeButton={Swal.close} diesel={diesel} setDiesel={setDiesel} d={d} />,
+      showCancelButton: false,
+      showConfirmButton:false,
+      
+    })
+
+  }
+
+  const editEntry = (d:any) => {
+    MySwal.fire({
+      title: <p>Updating...</p>,
+      html: <Update closeButton={Swal.close} prevData={d} />,
+      showCancelButton: false,
+      showConfirmButton:false,
+      
+    })
+     
+  }
+
+
+
     return(<>
     
     <TableContainer bg={'white'}  w={'95%'} mt={4} display={'flex'} mx={'auto'} >
@@ -43,12 +86,17 @@ export default function DetailsTable({Data}:Props){
     </Thead>
     
     <Tbody  fontWeight={'600'} fontSize={'1.10rem'}>
-      { Data?.length>0 && Data?.map((d:any , i:any) => (<Tr key={i}>
+      { diesel?.length>0 && diesel?.map((d:any , i:any) => (<Tr key={i}>
         <Td>{i+1}</Td>
         <Td>{d.liters}</Td>
         <Td>{format(new Date(d.date), 'yyyy-MM-dd')}</Td>
         <Td>{d.amount}</Td>
-        <Td>Edit</Td>
+        <Td>
+          <Flex gap={4} justifyContent={'space-evenly'} alignItems={'center'}>
+            <BiEdit className="w-5 h-5 text-green-500" onClick={() => editEntry(d)}/>
+            <AiFillDelete className="w-5 h-5 text-red-500" onClick={() => {test(d)}}/>
+          </Flex>
+        </Td>
       </Tr>))
       }
     </Tbody>

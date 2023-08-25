@@ -46,6 +46,7 @@ import {
       bags: 0 , 
       amount: 0,
       date: null,
+      desc:'',
     });
 
     // PLOUGH!
@@ -60,6 +61,7 @@ import {
       liters: 0, 
       amount: 0,
       date: null,
+      desc:'',
     });
 
     // Pesticides!
@@ -98,8 +100,8 @@ import {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body:JSON.stringify({date:fert.date , bags:fert.bags , bill:fert.amount ,parentId:router?.query?.crop})
-       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) )
+        body:JSON.stringify({date:fert.date , bags:fert.bags , bill:fert.amount ,parentId:router?.query?.crop,desc:fert?.desc})
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully");router.reload();}) )
 
        setDataState({view:'',open:false})
      }
@@ -112,7 +114,7 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({date:plough.date , acers:plough.acers , amount:plough.amount, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully");router.reload();}) );
 
        setDataState({view:'',open:false})
 

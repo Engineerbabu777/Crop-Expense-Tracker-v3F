@@ -6,7 +6,9 @@ const FertSchema = new mongoose.Schema({
     bags: {type: Number},
     bill: {type: Number},
     date: {type:Date},
-    parentId: {type:mongoose.Schema.Types.ObjectId, ref:'crop'}
+    parentId: {type:mongoose.Schema.Types.ObjectId, ref:'crop'},
+    desc: {type:String},
+    
 },{
     timestamps: true,
 });

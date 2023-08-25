@@ -9,20 +9,66 @@ import {
     Th,
     Td,
     TableCaption,
-    TableContainer,
+    TableContainer,Flex
   } from '@chakra-ui/react';
   import {format} from 'date-fns';
+  import {useState , useEffect} from 'react';
+  import {BiEdit} from 'react-icons/bi';
+  import {AiFillDelete} from 'react-icons/ai';
+  import { confirmAlert } from 'react-confirm-alert';
+  import 'react-confirm-alert/src/react-confirm-alert.css'; 
+  import toast, {Toaster} from 'react-hot-toast';
+  import Swal from 'sweetalert2'
+  import withReactContent from 'sweetalert2-react-content'
+  import {Alert} from '../SweetAlert/PloughAlert';
+  import {useRouter} from 'next/router';
+  import Update from '../SweetAlert/PloughUpdate';
+  import { DataState } from '@/atom/dataState';
+  import {useRecoilState} from 'recoil';
 
 
   
 
   type Props ={
-  Data: any;
+    plough: any;
+    setPlough:any;
   }
-export default function DetailsTable({Data}:Props){
+export default function DetailsTable({plough,setPlough}:Props){
+
+
+  
+  const router = useRouter();
+  const MySwal = withReactContent(Swal);
+
+
+
+  const test = (p:any) => {
+
+    MySwal.fire({
+      title: <p>Deleting ....</p>,
+      html: <Alert closeButton={Swal.close} plough={plough} setPlough={setPlough} p={p} />,
+      showCancelButton: false,
+      showConfirmButton:false,
+      
+    })
+
+  }
+
+  const editEntry = (p:any) => {
+    MySwal.fire({
+      title: <p>Updating...</p>,
+      html: <Update closeButton={Swal.close} prevData={p} />,
+      showCancelButton: false,
+      showConfirmButton:false,
+      
+    })
+     
+  }
+
 
 
     return(<>
+    <Toaster position={'bottom-center'}/>
     
     <TableContainer bg={'white'}  w={'95%'} mt={4} display={'flex'} mx={'auto'} >
   <Table variant='simple'>
@@ -41,7 +87,7 @@ export default function DetailsTable({Data}:Props){
     
     <Tbody  fontWeight={'600'} fontSize={'1.10rem'}>
 
-{ Data?.length> 0 && Data?.map((d:any, i:any) => (
+{ plough?.length> 0 && plough?.map((d:any, i:any) => (
       <Tr key={i}>
 
         <Td >{i+1}</Td>
@@ -49,7 +95,12 @@ export default function DetailsTable({Data}:Props){
         <Td>{d.amount}</Td>
         <Td>{format(new Date(d.date), 'yyyy-MM-dd')}</Td>
         <Td>Yes</Td>
-        <Td>Edit</Td>
+        <Td>
+          <Flex gap={4} justifyContent={'space-evenly'} alignItems={'center'}>
+            <BiEdit className="w-5 h-5 text-green-500" onClick={() => editEntry(d)}/>
+            <AiFillDelete className="w-5 h-5 text-red-500" onClick={() => {test(d)}}/>
+          </Flex>
+        </Td>
 
 
       </Tr>

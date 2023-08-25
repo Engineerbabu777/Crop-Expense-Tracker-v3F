@@ -45,7 +45,6 @@ export default function PloughPage({}) {
 
         setPLOUGH(data.allPlough.filter((m:any) => m.parentId == query?.crop));
 
-        // console.log(data);
 
       }));
   
@@ -57,7 +56,7 @@ export default function PloughPage({}) {
     return(<>
     
     
-    <div className="bg-gradient-to-br from-blue-500 to-black h-[calc(100vh-48px)] pt-2 w-full relative">
+    <div className="bg-gradient-to-br from-blue-500 to-black min-h-screen max-h-full pt-2 w-full relative">
 
 {/* TOP BOX! */}
  <div className="bg-gradient-to-r px-2  from-teal-400 to-blue-400 h-12 w-[95%] flex mx-auto items-center">
@@ -96,15 +95,8 @@ export default function PloughPage({}) {
   </div>
 
  {/* TABLE! */}
-  <DetailsTable Data={PLOUGH} />
+  <DetailsTable plough={PLOUGH} setPlough={setPLOUGH} />
 
-  {/* ABOUT APP! */}
-   <div className="mt-[5rem] bg-white absolute bottom-0 left-0 right-0 text-center  ">
-    {/* <p className="text-sm">Stay informed about your electricity usage patterns and make informed decisions to optimize costs, all within our user-friendly electricity billing table for efficient farm management.</p> */}
-   <p className="text-md text-gray-500">
-   All rights reserved © Crop Expenses Tracker 2023. Unauthorized reproduction or distribution of any content from this website is strictly prohibited.
-   </p>
-   </div>
 
 </div>
     
