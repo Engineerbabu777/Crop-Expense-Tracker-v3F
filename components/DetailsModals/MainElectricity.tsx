@@ -33,19 +33,18 @@ export default function MainElectricity({elect , setElect}:Props) {
 
     <div className="">
 
-        {/* BILLING MONTH! */}
-         <div className="flex gap-2 items-center ">
-            <div className="font-semibold text-xl text-gray-500">Select Month: </div>
-            <div className="flex-1 ">
-              <EMenuComponent handleMonthChange={handleMonthChange} selectedMonth={elect.selectedMonth} />
-            </div>
-         </div>
-        
-        {/* AUTO SELECT MONTH! */}
-         {/* <div className="h-8 w-full  mt-2 flex gap-2 items-center ">
-          <p className="font-semibold text-xl text-gray-500">Select Auto Date: </p>
-          <input type="checkbox" className="w-5 h-5" onChange={(e) => getCurrentDate(e)} />
-         </div> */}
+<div className="mt-4 flex gap-2 items-center flex-col ">
+    <p className="font-semibold text-xl text-gray-500 text-start w-full">Enter Description:</p>
+    <textarea value={elect?.desc} onChange={(e) => setElect((prev:any) => ({...prev, desc:e.target.value})) } 
+    className="w-full h-16 rounded-md border-2 border-gray-400 resize-none p-1" name="desc"  
+    ></textarea>
+</div>
+
+<div className="mt-4 flex gap-2 items-center ">
+    <p className="font-semibold text-xl text-gray-500">Enter Date:</p>
+    <input type="date" name="date" value={elect?.date} onChange={(e) => setElect((prev:any) => ({...prev, date:e.target.value})) } className="w-full p-2 outline-none border-2 border-green-500 rounded-md" placeholder="Enter Updated Date"/>
+</div>
+
 
         {/* BILL UNITS! */}
          <div className="mt-4 flex gap-2 items-center ">

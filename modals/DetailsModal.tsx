@@ -17,20 +17,28 @@ import {
   import MainMisc from '@/components/DetailsModals/MainMisc';
   import MainPesticides from '@/components/DetailsModals/MainPesticides';
   import MainDiesel from '@/components/DetailsModals/MainDiesel';
-  import {useState} from 'react';
+  import {useState,useEffect} from 'react';
   import {useRouter} from 'next/router';
+  import toast from 'react-hot-toast';
+  import useElectricity from '@/hooks/useCrop';
 
-  export default function ViewDataState() {
+   export default function ViewDataState() {
     const [data , setDataState] = useRecoilState(DataState);
-
     const router = useRouter();
+    const {Get_Electricity_Data} = useElectricity(router);
+
+    useEffect(() => {
+      if(router?.query?.crop){
+        Get_Electricity_Data(router?.query)
+      }
+    },[])
 
     // ELECTRICTY!
     const [elect , setElect] = useState({
       units: 0 , 
       bill: 0,
       date: null,
-      selectedMonth: '',
+      desc: '',
     });
 
     // FERTILIZERS!
@@ -77,8 +85,8 @@ import {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body:JSON.stringify({month:elect.selectedMonth , units:elect.units , bill:elect.bill , parentId:router?.query?.crop})
-       }).then((res) => res.json().then((data) => console.log(data)) )
+        body:JSON.stringify({date:elect.date,desc:elect.desc, units:elect.units , bill:elect.bill , parentId:router?.query?.crop})
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully");router.reload()}) )
 
        setDataState({view:'',open:false})
      }
@@ -91,7 +99,7 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({date:fert.date , bags:fert.bags , bill:fert.amount ,parentId:router?.query?.crop})
-       }).then((res) => res.json().then((data) => console.log(data)) )
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) )
 
        setDataState({view:'',open:false})
      }
@@ -104,7 +112,7 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({date:plough.date , acers:plough.acers , amount:plough.amount, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => console.log(data)) );
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
 
        setDataState({view:'',open:false})
 
@@ -120,7 +128,7 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({date:diesel.date , liters:diesel.liters , amount:diesel.amount, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => console.log(data)) );
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
 
        setDataState({view:'',open:false})
       console.log(diesel)
@@ -134,7 +142,7 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({amount:pesticides.amount , quantity:pesticides.quantity , date:pesticides.date, name: pesticides.name, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => console.log(data)) );
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
 
        setDataState({view:'',open:false})
       console.log(pesticides)
@@ -148,17 +156,16 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({date:misc.date , purpose:misc.purpose , amount:misc.amount, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => console.log(data)) );
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
 
        setDataState({view:'',open:false})
       console.log(pesticides)
      }
 
+
      
      
     }
-
-    console.log(data?.open);
 
     
     // ELECTRICITY !!

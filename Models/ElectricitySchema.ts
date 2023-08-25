@@ -10,9 +10,11 @@ const ElectSchema = new mongoose.Schema({
    // Bill!
    bill: {type: Number},
    // Month!
-   month: {type:String},
+   date: {type:Date},
    // ParentId!
-   parentId: {type:mongoose.Schema.ObjectId, ref:'crop'}
+   parentId: {type:mongoose.Schema.ObjectId, ref:'crop'},
+   // DESCRIPTION!
+   desc: {type:String},
 
    
 },{

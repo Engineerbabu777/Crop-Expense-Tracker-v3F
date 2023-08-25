@@ -10,14 +10,13 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
     
     // GET DETAILS!
      if(req.method === 'POST'){
-        const {month , units , bill , parentId} = req.body;
+        const { units , bill , parentId, date,desc} = req.body;
 
-        console.log(month,units,bill,parentId)
 
         // Save!
         
         const elecData = await electModel.create({
-            month , units , bill , parentId
+            date, desc , units , bill , parentId
         });
 
         res.status(200).json({success:true , ElecData:elecData});
@@ -33,7 +32,28 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
             res.status(200).json({success:true , allBills});
             res.end();
         
+    }
 
+    // DELETE REQUEST 🗑️🗑️🗑️!
+    if(req.method === 'DELETE'){
+        const {id} = req.body;  // GETTING DELETING ID!
+        await electModel.findByIdAndDelete(id); // DELETING FROM DATABASE BY ID!
+        res.status(200).json({success:true}); // RETURING SUCCESS STATUS CODE AND JSON RESPONSE!
+        res.end(); // CLOSING THE REQUEST!
+    }
+
+    // UPDATE REQUEST  🔄🔄🔄!
+    if(req.method === 'PUT'){
+        let {id,bill,units,desc,date} = req.body;
+        // if(!units) units = 0
+        // if(!desc) desc = '' 
+
+        const upadtedData = await electModel.findByIdAndUpdate(id,{
+          bill , units , date , desc
+        });
+
+        res.status(200).json({success:true,upadtedData});
+        res.end();
     }
 
 

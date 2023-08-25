@@ -19,7 +19,7 @@ export default function DetailsPage({}) {
     <ViewDataState />
     
      {/* NAVBAR! */}
-     <Navbar />
+     {/* <Navbar /> */}
       
       {/* MAIN */}
        <Main />
