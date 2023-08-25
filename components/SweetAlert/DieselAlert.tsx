@@ -25,7 +25,7 @@ function Alert({closeButton,diesel,setDiesel,d}:Props){
     const deleteEntry = (id:string) => {
         setDeleting(true);
 
-        setDiesel([...diesel.filter((d) => d._id != id)])
+        setDiesel([...diesel.filter((d:any) => d._id != id)])
           
     fetch('/api/dies',{
         method:'DELETE',

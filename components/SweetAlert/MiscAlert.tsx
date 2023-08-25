@@ -25,7 +25,7 @@ function Alert({closeButton,misc,setMisc,m}:Props){
     const deleteEntry = (id:string) => {
         setDeleting(true);
 
-        setMisc([...misc.filter((d) => d._id != id)])
+        setMisc([...misc.filter((d:any) => d._id != id)])
           
     fetch('/api/misc',{
         method:'DELETE',

@@ -1,5 +1,7 @@
 
 
+
+
 import {useState} from 'react';
 import {ClipLoader} from 'react-spinners';
 
@@ -13,8 +15,8 @@ export default function Update({closeButton,prevData}:Props){
 
     const [data , setData] = useState({
        amount: prevData?.amount || 0,
-       desc: prevData?.desc || '',
-       acers: prevData?.acers || 0,
+       quantity: prevData?.quantity || '',
+       desc: prevData?.desc || 0,
        date: prevData?.date || null,
        updating:false,
     });
@@ -27,14 +29,14 @@ export default function Update({closeButton,prevData}:Props){
         if(!data?.amount || !data?.date) console.log('some is empty')
         
         setData((prev:any) => ({...prev, updating:true}));
-        fetch('/api/plou',{
+        fetch('/api/pest',{
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body:JSON.stringify({amount:data.amount , acers:data.acers , date:data.date , id:prevData?._id , desc:data?.desc })
-           }).then((res) => res.json().then((data) => {console.log(data);
+            body:JSON.stringify({amount:data.amount , quantity:data?.quantity , date:data.date , id:prevData?._id , desc:data?.desc })
+           }).then((res:any) => res.json().then((data:any) => {console.log(data);
             setData((prev:any) => ({...prev, updating:false}));
             closeButton();
         }) ).catch((err:any) => {
@@ -52,8 +54,8 @@ export default function Update({closeButton,prevData}:Props){
     <p className="text-start mb-1">Enter Amount:</p>
     <input type="number" name="amount" value={data?.amount} onChange={handler} className="w-full p-2 outline-none border-2 border-green-500 rounded-md" placeholder="Enter Update Amount"/>
 
-    <p className="text-start mb-1">Enter Acers:</p>
-    <input type="number" name="acers" value={data?.acers} onChange={handler}className="w-full p-2 outline-none border-2 border-green-500 rounded-md" placeholder="Enter Updated Units"/>
+    <p className="text-start mb-1">Enter Quanity:</p>
+    <input type="number" name="quantity" value={data?.quantity} onChange={handler}className="w-full p-2 outline-none border-2 border-green-500 rounded-md" placeholder="Enter Updated Units"/>
 
     <p className="text-start">Enter Date:</p>
     <input type="date" name="date" value={data?.date} onChange={handler} className="w-full p-2 outline-none border-2 border-green-500 rounded-md" placeholder="Enter Updated Date"/>

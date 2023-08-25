@@ -1,40 +1,36 @@
 
 
-
 import toast from 'react-hot-toast';
 import {useState,useEffect} from 'react';
 import {ClipLoader} from 'react-spinners';
-import useElectricity from '@/hooks/useCrop';
 
 type Props ={
     closeButton:any;
-    plough:any;
-    setPlough:any;
+    pest:any;
+    setPest:any;
     p:any;
-    
 }
 
-function Alert({closeButton,plough,setPlough,p}:Props){
+function Alert({closeButton,pest,setPest,p}:Props){
 
     const [deleting , setDeleting]  = useState<boolean>(false);
     const [load , setload] = useState(false); 
 
 
-
-
     const deleteEntry = (id:string) => {
         setDeleting(true);
 
-        setPlough([...plough.filter((d:any) => d._id != id)])
+        setPest([...pest.filter((d:any) => d._id != id)])
           
-    fetch('/api/plou',{
+    fetch('/api/pest',{
         method:'DELETE',
         headers:{
           'Content-Type':'application/json',
           'accept':'application/json',
         },
         body:JSON.stringify({id})
-      }).then((res)=> res.json().then(()=> {toast.success('deleting was successfull');closeButton();setDeleting(false);setload(true)}))
+      }).then((res)=> res.json().then(()=> {toast.success('deleting was successfull');closeButton();
+      setDeleting(false);setload(true)}))
   
     }
 

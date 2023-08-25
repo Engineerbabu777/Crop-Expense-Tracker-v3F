@@ -55,7 +55,7 @@ export default function PesticidesPage() {
     return(<>
     
     
-    <div className="bg-gradient-to-br from-blue-500 to-black h-[calc(100vh-48px)] pt-2 w-full relative">
+    <div className="bg-gradient-to-br from-blue-500 to-black min-h-screen max-h-full pt-2 w-full relative">
 
 {/* TOP BOX! */}
  <div className="bg-gradient-to-r px-2  from-teal-400 to-blue-400 h-12 w-[95%] flex mx-auto items-center">
@@ -94,7 +94,7 @@ export default function PesticidesPage() {
   </div>
 
  {/* TABLE! */}
-  <DetailsTable  Data={PesticidesDetails} />
+  <DetailsTable  pest={PesticidesDetails} setPest={setPesticidesDetails} />
 
   
 

@@ -23,7 +23,7 @@ function Alert({closeButton,bills,setBills,b}:Props){
     const deleteEntry = (id:string) => {
         setDeleting(true);
 
-        setBills([...bills.filter((d) => d._id != id)])
+        setBills([...bills.filter((d:any) => d._id != id)])
           
     fetch('/api/elect',{
         method:'DELETE',

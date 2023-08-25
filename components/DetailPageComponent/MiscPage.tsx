@@ -80,9 +80,11 @@ export default function MiscPage() {
 
 
     return(<>
+
+    <Toaster position="bottom-center"/>
     
     
-    <div className="bg-gradient-to-br from-blue-500 to-black min-h-screen max-h-full pt-2 w-full relative">
+    <div className="bg-gradient-to-br from-blue-500 to-black min-h-screen max-h-full pt-2 w-full relative example">
 
 {/* TOP BOX! */}
  <div className="bg-gradient-to-r px-2  from-teal-400 to-blue-400 h-12 w-[95%] flex mx-auto items-center">
@@ -91,7 +93,7 @@ export default function MiscPage() {
   </div>
 
   <div className="w-[60%] ml-2">
-  <p className="font-bold text-xl text-white">MISCILLINOUS&nbsp;DETAILS</p>
+  <p className="font-bold text-xl text-white uppercase">miscellaneous</p>
   </div>
  </div>
 
@@ -118,39 +120,28 @@ export default function MiscPage() {
 
   {/* Boxes! */}
 
-<div className="mt-4">
+<div className="mt-4 example">
    {/* DISPLAY ! */}
-   { misc.length > 0 && misc.map((m:any , i ) => (<div key={i}>
-       <Divider width={'95%'} display={'flex'} mx={'auto'} my={2} />
-       <div key={i} className=" w-[95%] flex mx-auto mb-2 h-content rounded-md p-1 bg-gradient-to-r from-black to-blue-700">
-       <div  className="h-full w-full flex px-1 gap-2 ">
-         {/* PURPOSE! */}
-         <div className="w-[60%] h-[12] items-center   flex">
-         <p className="font-semibold text-md text-white">{m?.purpose}</p>
-         </div>
-         {/* DATE + AMOUNT! */}
-         <div className="flex flex-col gap-1 w-[45%] justify-evenly">
-           <div className="bg-white rounded-md p-1 flex gap-2 items-center justify-between px-2">
-             <p className="font-bold text-red-600">Rs-/ {m?.amount.toLocaleString()} </p>
-             <p className="font-bold text-lg">: رقم</p>
-           </div>
-   
-           <div className="bg-white rounded-md p-1 flex gap-2 items-center justify-between px-2">
-             <p className="font-bold text-red-600">{format(new Date(m?.date),'yyyy-MM-dd')}</p>
-             <p className="font-bold text-lg">: تاریخ</p>
-           </div>
-           <div>
-           <Flex gap={4} justifyContent={'space-evenly'} alignItems={'center'}>
-            <BiEdit className="w-5 h-5 text-green-500" onClick={() => editEntry(m)}/>
-            <AiFillDelete className="w-5 h-5 text-red-500" onClick={() => {test(m)}}/>
-          </Flex>
-           </div>
-         </div>
-       </div>
-      </div>
-  </div> ))
+   <div className="flex flex-col gap-2 mt-4 w-[95%] mx-auto h-[52vh] overflow-auto example" >
+            {misc?.length>0 && misc?.map((m:any , i:any) => (<div key={i} className="example p-1 border-2 bg-gray-200 border-gray-300 rounded-md flex flex-col gap-2">
+              <div className="">
+                <p className="text-xl text-black text-semibold">{m?.purpose}</p>
+                <p className="w-full text-end">
+                <Flex gap={4} justifyContent={'flex-end'}>
+                 <BiEdit className="w-7 h-7 text-green-500 bg-gray-300 p-2 rounded-md" onClick={() => editEntry(m)}/>
+                 <AiFillDelete className="w-7 h-7 text-red-500 bg-gray-300 p-2 rounded-md" onClick={() => {test(m)}}/>
+               </Flex>
+                </p>
+              </div>
+              <div className=" flex justify-between">
+               <p className="bg-blue-300 text-black p-2 text-sm">Date: {format(new Date(m?.date),'MMM dd yyyy')}</p>
+               <p className="bg-red-500 text-white p-2 text-sm">Amount: {m?.amount?.toLocaleString()} pkr</p>
+              </div>
+            </div>))}
+            
+    </div>
 
-   }
+   
 </div>
 
  

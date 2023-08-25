@@ -7,7 +7,7 @@ const PestSchema = new mongoose.Schema({
     quantity:Number,
     amount: Number,
     date: Date,
-    name: String,
+    desc: String,
     parentId: {type:mongoose.Schema.Types.ObjectId, ref:'crop'}
 
 },{

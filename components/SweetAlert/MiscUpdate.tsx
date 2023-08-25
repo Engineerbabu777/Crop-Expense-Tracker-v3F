@@ -14,7 +14,7 @@ export default function Update({closeButton,prevData}:Props){
 
     const [data , setData] = useState({
        amount: prevData?.amount || 0,
-       desc: prevData?.desc || '',
+       purpose: prevData?.purpose || '',
        date: prevData?.date || null,
        updating:false,
     });
@@ -26,15 +26,15 @@ export default function Update({closeButton,prevData}:Props){
     const updateData = async() => {
         if(!data?.amount || !data?.date) console.log('some is empty')
         
-        setData((prev) => ({...prev, updating:true}));
+        setData((prev:any) => ({...prev, updating:true}));
         fetch('/api/misc',{
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body:JSON.stringify({amount:data.amount  , date:data.date , id:prevData?._id , desc:data?.desc })
-           }).then((res) => res.json().then((data) => {console.log(data);
+            body:JSON.stringify({amount:data.amount  , date:data.date , id:prevData?._id , purpose:data?.purpose })
+           }).then((res:any) => res.json().then((data:any) => {console.log(data);
             setData((prev:any) => ({...prev, updating:false}));
             closeButton();
         }) ).catch((err:any) => {
@@ -47,7 +47,7 @@ export default function Update({closeButton,prevData}:Props){
     return(<div>
     { !data?.updating && (<>
     <p className="text-start mb-1">Enter Description:</p>
-    <textarea className="w-full h-16 rounded-md border-2 border-gray-400 resize-none p-1" name="desc" value={data?.desc} onChange={handler}></textarea>
+    <textarea className="w-full h-16 rounded-md border-2 border-gray-400 resize-none p-1" name="purpose" value={data?.purpose} onChange={handler}></textarea>
 
     <p className="text-start mb-1">Enter Amount:</p>
     <input type="number" name="amount" value={data?.amount} onChange={handler} className="w-full p-2 outline-none border-2 border-green-500 rounded-md" placeholder="Enter Update Amount"/>

@@ -25,12 +25,9 @@ import {
    export default function ViewDataState() {
     const [data , setDataState] = useRecoilState(DataState);
     const router = useRouter();
-    const {Get_Electricity_Data} = useElectricity(router);
 
     useEffect(() => {
-      if(router?.query?.crop){
-        Get_Electricity_Data(router?.query)
-      }
+      
     },[])
 
     // ELECTRICTY!
@@ -68,7 +65,7 @@ import {
      const [pesticides , setPesticides] = useState({
       quantity: 0,
       amount: 0,
-      name: '',
+      desc: '',
       date:null,
      })
 
@@ -130,7 +127,7 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({date:diesel.date , liters:diesel.liters , amount:diesel.amount, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully");router.reload();}) );
 
        setDataState({view:'',open:false})
       console.log(diesel)
@@ -143,8 +140,8 @@ import {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body:JSON.stringify({amount:pesticides.amount , quantity:pesticides.quantity , date:pesticides.date, name: pesticides.name, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
+        body:JSON.stringify({amount:pesticides.amount , quantity:pesticides.quantity , date:pesticides.date, desc: pesticides.desc, parentId:router.query.crop})
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully");router.reload();}) );
 
        setDataState({view:'',open:false})
       console.log(pesticides)
@@ -158,7 +155,7 @@ import {
           'Content-Type': 'application/json'
         },
         body:JSON.stringify({date:misc.date , purpose:misc.purpose , amount:misc.amount, parentId:router.query.crop})
-       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully")}) );
+       }).then((res) => res.json().then((data) => {console.log(data);toast.success("Added Successfully");router.reload();}) );
 
        setDataState({view:'',open:false})
       console.log(pesticides)

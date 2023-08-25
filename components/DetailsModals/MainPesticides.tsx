@@ -30,22 +30,17 @@ export default function MainPesticides({setPesticides , pesticides}:Props) {
         {/* BILLING MONTH! */}
       
         
-        {/* AUTO SELECT MONTH! */}
-         {/* <div className="h-8 w-full  mt-2 flex gap-2 items-center ">
-          <p className="font-semibold text-xl text-gray-500">Select Auto Date: </p>
-          <input type="checkbox" className="w-5 h-5" onChange={(e) => getCurrentDate(e)} />
-         </div> */}
 
         {/* BILL UNITS! */}
          <div className="mt-4 flex gap-2 items-center ">
           <div className="font-semibold text-xl text-gray-500">Quantity Used: </div>
-          <input  value={pesticides.quantity} onChange={(e) => setPesticides((prev:any) => ({...prev , quantity:e.target.value}))} placeholder="0" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
+          <input type="number" value={pesticides.quantity} onChange={(e) => setPesticides((prev:any) => ({...prev , quantity:e.target.value}))} placeholder="0" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
          </div>
 
          <div className="mt-4 flex gap-2 items-center ">
-          <div className="font-semibold text-xl text-gray-500">Name: </div>
-          <input value={pesticides.name} onChange={(e) => setPesticides((prev:any) => ({...prev , name:e.target.value}))}   
-          placeholder="Default N/A" className="border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
+          <div className="font-semibold text-xl text-gray-500 flex-grow">Detail: </div>
+          <textarea value={pesticides.desc} onChange={(e) => setPesticides((prev:any) => ({...prev , desc:e.target.value}))}   
+          placeholder="Write about your pesticides" className="w-full resize-none border-2 border-gray-200 outline-none placeholder:text-gray-300 w-[50%] pl-4 placeholder:font-semibold p-[5px] rounded-md"/>
          </div>
 
          <div className="mt-4 flex gap-2 items-center ">

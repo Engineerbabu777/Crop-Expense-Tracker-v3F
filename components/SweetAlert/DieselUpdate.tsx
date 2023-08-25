@@ -27,7 +27,7 @@ export default function Update({closeButton,prevData}:Props){
     const updateData = async() => {
         if(!data?.amount || !data?.date) console.log('some is empty')
         
-        setData((prev) => ({...prev, updating:true}));
+        setData((prev:any) => ({...prev, updating:true}));
         fetch('/api/dies',{
             method: 'PUT',
             headers: {
@@ -35,7 +35,7 @@ export default function Update({closeButton,prevData}:Props){
               'Content-Type': 'application/json'
             },
             body:JSON.stringify({amount:data.amount , liters:data.liters , date:data.date , id:prevData?._id , desc:data?.desc })
-           }).then((res) => res.json().then((data) => {console.log(data);
+           }).then((res:any) => res.json().then((data:any) => {console.log(data);
             setData((prev:any) => ({...prev, updating:false}));
             closeButton();
         }) ).catch((err:any) => {

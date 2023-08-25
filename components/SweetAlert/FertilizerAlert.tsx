@@ -27,7 +27,7 @@ function Alert({closeButton,fert,setFert,f}:Props){
     const deleteEntry = (id:string) => {
         setDeleting(true);
 
-        setFert([...fert.filter((d) => d._id != id)])
+        setFert([...fert.filter((d:any) => d._id != id)])
           
     fetch('/api/fert',{
         method:'DELETE',
