@@ -5,6 +5,7 @@ import {Box} from '@chakra-ui/react';
 import {IoNotifications} from 'react-icons/io5';
 import Link from 'next/link';
 import React , {useState} from 'react';
+import {signOut} from 'next-auth/react';
 
 export default function Navbar({}){
 
@@ -24,7 +25,7 @@ export default function Navbar({}){
         </Link>
 
        {/* ICON */}
-       <div d-className="relative">
+       <div d-className="relative" onClick={() => signOut()}>
         <IoNotifications className="w-6 h-6" />
         <div className="bg-red-600 h-3 w-3 rounded-full absolute right-2 top-3"></div>
        </div>

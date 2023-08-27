@@ -34,7 +34,7 @@ import {
     const [elect , setElect] = useState({
       units: 0 , 
       bill: 0,
-      date: null,
+      date: '',
       desc: '',
     });
 
@@ -42,7 +42,7 @@ import {
     const [fert , setFert] = useState({
       bags: 0 , 
       amount: 0,
-      date: null,
+      date: '',
       desc:'',
     });
 
@@ -50,7 +50,7 @@ import {
     const [plough , setPlough] = useState({
       acers: 0, 
       amount: 0,
-      date: null,
+      date: '',
     });
 
     // DIESEL!

@@ -71,7 +71,7 @@ export default function DetailsTable({bills,setBills}:Props){
     <Thead  >
       <Tr  >
         <Th color={'gray.400'} fontWeight={'600'} fontSize={'1.05rem'} >No.</Th>
-        <Th color={'gray.400'} fontWeight={'600'} fontSize={'1.05rem'}>Billing Month</Th>
+        <Th color={'gray.400'} fontWeight={'600'} fontSize={'1.05rem'}>Date/Month</Th>
         <Th color={'gray.400'} fontWeight={'600'} fontSize={'1.05rem'}>Units</Th>
         <Th color={'gray.400'} fontWeight={'600'} fontSize={'1.05rem'}>@/rate unit</Th>
         <Th color={'gray.400'} fontWeight={'600'} fontSize={'1.05rem'}>Billing Amount</Th>
@@ -86,11 +86,10 @@ export default function DetailsTable({bills,setBills}:Props){
 { bills?.length >0 && bills?.map((b:any , i:any) => (
       <Tr key={i}>
         <Td >{i+1}</Td>
-        <Td>{format(new Date(b?.date),'yyyy-MM-dd')}</Td>
-        {/* <Td>No Date</Td> */}
+        <Td>{b?.date ? (<> {format(new Date(b?.date),'yyyy-MM-dd')} </>) : ('N/A')}</Td>
         <Td>{b?.units}</Td>
         <Td>41</Td>
-        <Td>{b.bill}</Td>
+        <Td>{b?.bill}</Td>
         <Td>Yes</Td>
         <Td>
           <Flex gap={4} justifyContent={'space-evenly'} alignItems={'center'}>

@@ -8,13 +8,12 @@ type Props = {
 }
 
 export default function Update({closeButton,prevData}:Props){
-    console.log(prevData)
 
     const [data , setData] = useState({
        amount: prevData?.bill || 0,
        desc: prevData?.desc || '',
        units: prevData?.units || 0,
-       date: prevData?.date || null,
+       date: prevData?.date || '',
        updating:false,
     });
 
